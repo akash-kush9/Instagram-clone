@@ -1,0 +1,31 @@
+.post {
+  border: lightgreen solid 1px;
+  background-color: lightcyan;
+  max-width: 400px;
+  margin-bottom: 20px;
+}
+.post__username {
+}
+.post__image {
+  object-fit: contain;
+  border-top: lightgreen solid 1px;
+  border-bottom: lightgreen solid 1px;
+  width: 100%;
+}
+.post__text {
+  font-weight: normal;
+  padding: 20px;
+}
+.post__avatar {
+  margin-right: 10px;
+  border: lightgreen solid 1px;
+}
+
+.post__header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.post__commentbox {
+}

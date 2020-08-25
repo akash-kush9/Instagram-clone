@@ -4,22 +4,24 @@ import Avatar from "@material-ui/core/Avatar";
 import { Input, Button } from "@material-ui/core";
 import { db } from "../firebase";
 import firebase from "firebase";
-const Post = ({ userName, imageUrl, postName, caption, postId }) => {
+const Post = ({ userName, imageUrl, postName, caption, postId ,user}) => {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
 
   useEffect(() => {
     let unsubscribe;
+
+    
     if (postId)
       unsubscribe = db
         // listener of a nested collection
         .collection("posts")
         .doc(postId)
-        .collection("commnets")
+        .collection("comments").orderBy('timestamp','desc')
         .onSnapshot((snapshot) => {
-          setComments(snapshot.docs.map((doc) => doc.data()));
+          setComments(snapshot.docs.map((doc) => doc.data()))
         });
-
+    
     return () => unsubscribe();
   }, [postId]);
 
@@ -33,14 +35,15 @@ const Post = ({ userName, imageUrl, postName, caption, postId }) => {
         .collection("comments")
         .add({
           text: comment,
-          commentCreatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-          userName: userName,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          userName: user.displayName,
         });
+    setComment('')
     return () => unsubscribe();
   };
 
   return (
-    <div className="post">
+    <div key={postId} className="post">
       <div className="post__header">
         <Avatar
           className="post__avatar"
@@ -53,7 +56,19 @@ const Post = ({ userName, imageUrl, postName, caption, postId }) => {
       <h4 className="post__text">
         <strong> {userName} </strong> {caption}
       </h4>
-      <form onSubmit={postCommentHandler} className="post__commentbox">
+      <div className="post__comment"> 
+      {comments.map ( comment=> (<div key = {comment.id}>
+            <strong>
+              {comment.userName} {"  "}
+            </strong>
+            {comment.text}
+            </div>)
+        )}
+
+      </div>
+
+
+      {user && <form onSubmit={postCommentHandler} className="post__commentbox">
         <Input
           className="post__input"
           type="text"
@@ -61,8 +76,8 @@ const Post = ({ userName, imageUrl, postName, caption, postId }) => {
           value={comment}
           onChange={(event) => setComment(event.target.value)}
         />
-        <Button type="submit">Post</Button>
-      </form>
+        <Button className="post__button" type="submit">Post</Button>
+      </form>}
     </div>
   );
 };

@@ -8,15 +8,18 @@
 }
 .app__headerImage {
   object-fit: contain;
-  /* width: 90px; */
+  width: 90px;
 }
 .app__header {
+  position:sticky;
+top : 0;
+z-index:1 ;
   padding: 2px;
   border-bottom: 1px solid lightgray;
   object-fit: contain;
   display: flex;
   justify-content: space-between;
-  background-color: greenyellow;
+  background-color: rgb(250, 253, 255);;
 }
 
 .app {
@@ -30,7 +33,6 @@
 
 .app_posts {
   display: flex;
-  border: black solid 1px;
   justify-content: center;
 }
 
@@ -38,15 +40,15 @@
   /* justify-content: center; */
   /* display: block; */
   padding: 20px;
-  border: limegreen solid 1px;
+  /* border: lightgray solid 1px; */
   margin-left: auto;
   margin-right: auto;
 }
 
 .app__postsRight {
-  border: lightpink solid 1px;
+  border-left: lightgray solid 1px;
+  padding : 20px;
   /* display: block; */
   /* justify-content: center; */
-  margin-left: auto;
-  margin-right: auto;
+
 }

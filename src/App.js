@@ -130,7 +130,7 @@ const App = () => {
       <Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
         <div style={modalStyle} className={classes.paper}>
           <center>
-            <img
+            <img 
               className="app__headerImage"
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png"
               alt="Insta_clone"
@@ -182,6 +182,7 @@ const App = () => {
               postName={post.postName}
               caption={post.caption}
               userName={post.userName}
+              user={user}
             />
           ))}
         </div>
